@@ -12,19 +12,16 @@ void troca(int *num1, int *num2){ // função que auxliará a troca de elementos
 }
 
 void bolha(int *vetor, int N){
-    int i, continua, aux, fim = N;
-    do{
-        continua = 0;
-        for(i = 0; i<fim-1;i++){
-            if(vetor[i]>vetor[i+1]){
-                aux=vetor[i];
-                vetor[i]=vetor[i+1];
-                vetor[i+1]=aux;
-                continua = i;
-            }
+    if(N<1){
+        return ;
+    }
+    for(int i = 0; i < N; i++){
+        if(vetor[i]>vetor[i+1]){
+            troca(&vetor[i],&vetor[i+1]);
+            ;
         }
-        fim--;
-    }while(continua != 0);
+    }
+    bolha(vetor, N-1);
 }
 
 void selection(int *vetor, int tamanho){
@@ -86,34 +83,42 @@ void mergeSort( int *vetor, int inicio, int fim){
     }
 }
 
-void quick_sort(int *a, int left, int right) {
-    int i, j, x, y;
-     
-    i = left;
-    j = right;
-    x = a[(left + right) / 2];
-     
-    while(i <= j) {
-        while(a[i] < x && i < right) {
-            i++;
+int particiona(int *vetor, int inicio, int fim){
+    int esq, dir, pivo;
+    esq=inicio;
+    dir=fim;
+    pivo=vetor[inicio];
+    
+    while(esq<dir){   //[P, , , , , , ]
+                       //E           D
+        while(vetor[esq]<=pivo){       // avança uma posição a esquerda
+            esq++;
+                  
         }
-        while(a[j] > x && j > left) {
-            j--;
+        
+        while(vetor[dir]>pivo){ // recua uma posicao a direta
+            dir--;
+                   
         }
-        if(i <= j) {
-            y = a[i];
-            a[i] = a[j];
-            a[j] = y;
-            i++;
-            j--;
+        
+        if(esq<dir){
+            troca(&vetor[esq],&vetor[dir]);
+            
         }
-    }
 
-    if(j > left) {
-        quick_sort(a, left, j);
     }
-    if(i < right) {
-        quick_sort(a, i, right);
+    vetor[inicio]=vetor[dir];
+    vetor[dir]=pivo;
+    
+    return dir;
+}
+
+void quick_sort( int *vetor, int inicio, int fim){
+    int pivo;
+    if(fim>inicio){
+        pivo=particiona(vetor, inicio, fim);
+        quick_sort(vetor,inicio,pivo-1); // chamar a função para primeira  metade
+        quick_sort(vetor,pivo+1,fim); // chamar a função para segunda metade
     }
 }
 
@@ -179,36 +184,36 @@ int main(){
         vetor_quick[i] = vetor_bolha[i];
         vetor_heap[i] = vetor_bolha[i]; 
     }
-
+  
     clock_t tempoExec_bolha;
-
+     
     tempoExec_bolha=clock();
     bolha(vetor_bolha,tamanho);
     tempoExec_bolha=clock()-tempoExec_bolha;
-    printf("Tempo de execucao do metodo bolha: %0.4lf\n",((double)tempoExec_bolha/((CLOCKS_PER_SEC/1000))));
+    printf("Tempo de execucao do metodo bolha: %0.4lf\n",((double)tempoExec_bolha/((CLOCKS_PER_SEC))));
     
     clock_t tempoExec_selection;
-
+   
     tempoExec_selection = clock();
     selection(vetor_selection,tamanho);    
     tempoExec_selection = clock() - tempoExec_selection;
-    printf("Tempo de execucao do metodo selection: %0.4lf\n",((double)tempoExec_selection/((CLOCKS_PER_SEC/1000))));
-    
+    printf("Tempo de execucao do metodo selection: %0.4lf\n",((double)tempoExec_selection/((CLOCKS_PER_SEC))));
+   
     clock_t tempoExec_merge;
     tempoExec_merge=clock();
     mergeSort(vetor_merge,0,tamanho-1);
     tempoExec_merge=clock() - tempoExec_merge;
-    printf("Tempo de execucao do metodo Merge: %0.4lf\n",((double)tempoExec_merge/((CLOCKS_PER_SEC/1000))));
+    printf("Tempo de execucao do metodo Merge: %0.4lf\n",((double)tempoExec_merge/((CLOCKS_PER_SEC))));
     
     clock_t tempoExec_quick;
     tempoExec_quick=clock();
     quick_sort(vetor_quick,0,tamanho-1);
     tempoExec_quick=clock()-tempoExec_quick;
-    printf("Tempo de execucao do metodo quick: %0.4lf\n",((double)tempoExec_quick/((CLOCKS_PER_SEC/1000))));
-
+    printf("Tempo de execucao do metodo quick: %0.4lf\n",((double)tempoExec_quick/((CLOCKS_PER_SEC))));
+    
     clock_t tempoExec_heap;
     tempoExec_heap=clock();
     heapSort(vetor_heap,tamanho-1);
     tempoExec_heap=clock()-tempoExec_heap;
-    printf("Tempo de execucao do metodo heap: %0.4lf\n",((double)tempoExec_heap/((CLOCKS_PER_SEC/1000))));
+    printf("Tempo de execucao do metodo heap: %0.4lf\n",((double)tempoExec_heap/((CLOCKS_PER_SEC))));
 }
