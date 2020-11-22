@@ -190,30 +190,30 @@ int main(){
     tempoExec_bolha=clock();
     bolha(vetor_bolha,tamanho);
     tempoExec_bolha=clock()-tempoExec_bolha;
-    printf("Tempo de execucao do metodo bolha: %0.4lf\n",((double)tempoExec_bolha/((CLOCKS_PER_SEC))));
+    printf("Tempo de execucao do metodo bolha: %0.4lf\n",((double)tempoExec_bolha/((CLOCKS_PER_SEC/1000))));
     
     clock_t tempoExec_selection;
    
     tempoExec_selection = clock();
     selection(vetor_selection,tamanho);    
     tempoExec_selection = clock() - tempoExec_selection;
-    printf("Tempo de execucao do metodo selection: %0.4lf\n",((double)tempoExec_selection/((CLOCKS_PER_SEC))));
+    printf("Tempo de execucao do metodo selection: %0.4lf\n",((double)tempoExec_selection/((CLOCKS_PER_SEC/1000))));
    
     clock_t tempoExec_merge;
     tempoExec_merge=clock();
     mergeSort(vetor_merge,0,tamanho-1);
     tempoExec_merge=clock() - tempoExec_merge;
-    printf("Tempo de execucao do metodo Merge: %0.4lf\n",((double)tempoExec_merge/((CLOCKS_PER_SEC))));
+    printf("Tempo de execucao do metodo Merge: %0.4lf\n",((double)tempoExec_merge/((CLOCKS_PER_SEC/1000))));
     
     clock_t tempoExec_quick;
     tempoExec_quick=clock();
     quick_sort(vetor_quick,0,tamanho-1);
     tempoExec_quick=clock()-tempoExec_quick;
-    printf("Tempo de execucao do metodo quick: %0.4lf\n",((double)tempoExec_quick/((CLOCKS_PER_SEC))));
+    printf("Tempo de execucao do metodo quick: %0.4lf\n",((double)tempoExec_quick/((CLOCKS_PER_SEC/1000))));
     
     clock_t tempoExec_heap;
     tempoExec_heap=clock();
     heapSort(vetor_heap,tamanho-1);
     tempoExec_heap=clock()-tempoExec_heap;
-    printf("Tempo de execucao do metodo heap: %0.4lf\n",((double)tempoExec_heap/((CLOCKS_PER_SEC))));
+    printf("Tempo de execucao do metodo heap: %0.4lf\n",((double)tempoExec_heap/((CLOCKS_PER_SEC/1000))));
 }
